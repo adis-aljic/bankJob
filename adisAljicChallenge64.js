@@ -314,13 +314,13 @@ const data_Base = {
 data_Base.BANKS.push(prvaBanka, drugaBanka, trecaBanka)
 data_Base.CUSTOMERS.push(numberOfCustomores)
 
-fs.writeFile("prvaBanka.json", JSON.stringify(prvaBanka.transactions), function (err) {
+fs.writeFile("DataBase.json", JSON.stringify(data_Base), function (err) {
     if (err) throw err;
 });
 
-// console.log(prvaBanka.transactions[0])
-// console.log(drugaBanka.transactions.length)
-// console.log(trecaBanka.transactions.length)
+console.log(prvaBanka.transactions.length)
+console.log(drugaBanka.transactions.length)
+console.log(trecaBanka.transactions.length)
 // console.log(numberOfCustomores[1])
 const aaaa =prvaBanka.transferMoney(10,16,50)
 console.log( prvaBanka.transactions[prvaBanka.transactions.length-1])
