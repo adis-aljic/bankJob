@@ -178,9 +178,7 @@ function createAccount(person, account_ID) {
     }
 }
 
-// ovaj dio mi ne radi kako treba
-// ne mogu da zaposlim odredjeni broj ljudi u sve tri kompanije..kada zaposlim u jednu kompaniju program radi bez problema.
-// nisam uspio naci gdje je greska
+
 const gotCustomers = (bank, array, number) => {
     let cnt = 0;
     for (let i = 0; i < array.length; i++) {
@@ -189,7 +187,7 @@ const gotCustomers = (bank, array, number) => {
             // console.log(person)
             bank.openAccount(createAccount(person, i))
             person.hasAcc = true
-            person.account_ID = bank.accounts[i].account_ID
+            person.account_ID = bank.accounts[cnt].account_ID
             cnt++
 
         }
@@ -217,9 +215,9 @@ const gotCustomers = (bank, array, number) => {
 // }
 
 
-// gotCustomers(prvaBanka, numberOfCustomores, 20)
-// gotCustomers(drugaBanka, numberOfCustomores, 50)
-gotCustomers(trecaBanka, numberOfCustomores, 100)
+gotCustomers(prvaBanka, numberOfCustomores, 20)
+gotCustomers(drugaBanka, numberOfCustomores, 50)
+gotCustomers(trecaBanka, numberOfCustomores, 30)
 // console.log(trecaBanka.accounts)
 
 
@@ -249,6 +247,8 @@ const findAccount = (account_ID, bank) => {
 }
 
 
-findAccount(1, trecaBanka)  
+// findAccount(1, trecaBanka)
+console.log(trecaBanka.accounts)  
+console.log(numberOfCustomores[99])
 // console.log(trecaBanka.accounts[1])
 // console.log(numberOfCustomores[1])
