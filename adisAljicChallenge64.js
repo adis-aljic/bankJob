@@ -50,6 +50,8 @@ createBank = (bank_ID, name, location, accounts = [], transactions = []) => {
         transactions,
 
         openAccount(account) {
+            
+            account.bank_ID = this.bank_ID
             this.accounts.push(account);
             return account;
         },
@@ -175,6 +177,7 @@ const trecaBanka = createBank(3, "Treca Banka", "Tuzla");
 
 function createAccount(person, account_ID) {
     return {
+        bank_ID : undefined,
         firstName: person.firstName,
         lastName: person.lastName,
         JMBG: person.JMBG,
