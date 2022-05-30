@@ -39,12 +39,11 @@ const createTransaction = (firstName, lastName, ID, type, account_ID, JMBG, amou
 
     }
 }
-const createTransactionForTransferingMoney = (bank_IDSender, bank_IDReciever, firstNameSender, lastNameSender, firstNameReciever, lastNameReciever, ID, type, SenderAccount_ID, RecieverAccount_ID, JMBGSender, JMBGReciever, amount) => {
+const createTransactionForTransferingMoney = (bank_ID, firstNameSender, lastNameSender, firstNameReciever, lastNameReciever, ID, type, SenderAccount_ID, RecieverAccount_ID, JMBGSender, JMBGReciever, amount) => {
     return {
         time: getTime().substring(11),
         date: getTime().substring(0, 10),
-        bank_IDSender,
-        bank_IDReciever,
+        bank_ID,
         firstNameSender,
         lastNameSender,
         firstNameReciever,
@@ -88,16 +87,15 @@ createBank = (bank_ID, name, location, accounts = [], transactions = []) => {
 
             });
         },  // index 1 refers to bank and account from which we send money, index 2 refers to bank and acc which recive money
-        transferMoney(account_ID1, bank1, account_ID2, bank2, amount) {
-            bank1.accounts.forEach(account => {
-                bank2.accounts.forEach(account1 => {
+        transferMoney(account_ID1, account_ID2, amount) {
+            this.accounts.forEach(account => {
+                this.accounts.forEach(account1 => {
 
                     if (account.account_ID == account_ID1 && account1.account_ID == account_ID2) {
 
-                        bank1.accounts[account_ID1].balance -= amount;
-                        bank2.accounts[account_ID2].balance += amount;
-                        bank1.transactions.push(createTransactionForTransferingMoney(account.bank_ID, account1.bank_ID, account.firstName, account.lastName, account1.firstName, account1.lastName, transactions.length, "transfer money", account.account_ID, account1.account_ID, account.JMBG, account1.JMBG, amount)) 
-                        bank2.transactions.push(createTransactionForTransferingMoney(account.bank_ID, account1.bank_ID,account.firstName, account.lastName, account1.firstName, account1.lastName, transactions.length, "transfer money", account.account_ID, account1.account_ID, account.JMBG, account1.JMBG, amount)) 
+                        this.accounts[account_ID1].balance -= amount;
+                        this.accounts[account_ID2].balance += amount;
+                        this.transactions.push(createTransactionForTransferingMoney( account.bank_ID,account.firstName, account.lastName, account1.firstName, account1.lastName, transactions.length, "transfer money", account.account_ID, account1.account_ID, account.JMBG, account1.JMBG, amount)) 
                 }                
                 });
 
@@ -107,7 +105,7 @@ createBank = (bank_ID, name, location, accounts = [], transactions = []) => {
             this.accounts.forEach(account => {
                 if (account.account_ID == account_ID1) {
                     account.balance += deposit;
-                    this.transactions.push(createTransaction(account.firstName, account.lastName, transactions.length, "deposit", account.account_ID, account.JMBG, deposit));
+                    this.transactions.push(createTransaction( account.firstName, account.lastName, transactions.length, "deposit", account.account_ID, account.JMBG, deposit));
                 }
 
             });
@@ -323,6 +321,7 @@ fs.writeFile("prvaBanka.json", JSON.stringify(prvaBanka.transactions), function 
 // console.log(drugaBanka.transactions.length)
 // console.log(trecaBanka.transactions.length)
 // console.log(numberOfCustomores[1])
-const aaaa =prvaBanka.transferMoney(10,prvaBanka,16,prvaBanka,50)
+const aaaa =prvaBanka.transferMoney(10,16,50)
 console.log( prvaBanka.transactions[prvaBanka.transactions.length-1])
 
+console.log(numberOfCustomores[10])
