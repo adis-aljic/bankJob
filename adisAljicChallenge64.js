@@ -22,7 +22,13 @@ const getTime = () => {
     return currentDate.toLocaleString();
 
 }
+// funkcija za slanje para u drugu banku
+// const sendMoney = (bank,account_ID2, amount) => {
+// bank.accounts[account_ID2].balance += amount
+// bank.transactions.push(createTransactionForTransferingMoney( account.bank_ID,account.firstName, account.lastName, account1.firstName, account1.lastName, transactions.length, "transfer money", account.account_ID, account1.account_ID, account.JMBG, account1.JMBG, amount)) 
 
+
+// }
 
 // konstruktor za kreiranje objekta transakcije
 const createTransaction = (firstName, lastName, ID, type, account_ID, JMBG, amount) => {
@@ -101,6 +107,22 @@ createBank = (bank_ID, name, location, accounts = [], transactions = []) => {
 
             });
         },
+        // sendMoneyToDiffrentBank(account_ID1, amount, bank, account_ID2) {
+        //     this.accounts.forEach(account => {
+        //         this.accounts.forEach(account1 => {
+
+        //             if (account.account_ID == account_ID1 ) {
+
+        //                 this.accounts[account_ID1].balance -= amount;
+        //                 this.accounts[account_ID2].balance += amount;
+        //                 this.transactions.push(createTransactionForTransferingMoney( account.bank_ID,account.firstName, account.lastName, account1.firstName, account1.lastName, transactions.length, "transfer money", account.account_ID, account1.account_ID, account.JMBG, account1.JMBG, amount)) 
+        //                 sendMoney(bank,account_ID2,amount)
+        //             }                
+        //         });
+
+        //     });
+        // },
+
         deposit(account_ID1, deposit) {
             this.accounts.forEach(account => {
                 if (account.account_ID == account_ID1) {
@@ -241,35 +263,14 @@ const gotCustomers = (bank, array, number) => {
     }
 
 }
-// for (let i = 0; i <20; i++) {
-//     const person = numberOfCustomores[i];
-//     prvaBanka.openAccount(createAccount(person,i))
-//     person.hasAcc = true
-//     person.account_ID = prvaBanka.accounts[i].account_ID
-// }
-// for (let i = 20; i < 80; i++) {
-//     const person = numberOfCustomores[i];
-//     drugaBanka.openAccount(createAccount(person,i))
-//     person.hasAcc = true
-//     person.account_ID = drugaBanka.accounts[i].account_ID
-// }
-// for (let i = 80; i < 100; i++) {
-//     const person = numberOfCustomores[i];
-//     trecaBanka.openAccount(createAccount(person,i))
-//     person.hasAcc = true
-//     person.account_ID = trecaBanka.accounts[i].account_ID
-// }
-
 
 gotCustomers(prvaBanka, numberOfCustomores, 20)
 gotCustomers(drugaBanka, numberOfCustomores, 50)
 gotCustomers(trecaBanka, numberOfCustomores, 30)
-// console.log(trecaBanka.accounts)
 
 
 for (let i = 0; i < 10; i++) {
-    // izvrseno po deset transakcija po akountu
-    // izvrseno po sto transakcija za svaku transakciju
+    // transakcije
     for (let i = 1; i < 100; i++) {
         trecaBanka.deposit(i, 100)
         prvaBanka.deposit(i, 100)
@@ -324,4 +325,3 @@ fs.writeFile("prvaBanka.json", JSON.stringify(prvaBanka.transactions), function 
 const aaaa =prvaBanka.transferMoney(10,16,50)
 console.log( prvaBanka.transactions[prvaBanka.transactions.length-1])
 
-console.log(numberOfCustomores[10])
