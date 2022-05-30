@@ -1,0 +1,168 @@
+{
+    "bank_ID": 1,
+    "name": "Prva Banka",
+    "location": "Tuzla",
+    "accounts": [
+        {
+            "firstName": "Rosa",
+            "lastName": "Rose",
+            "JMBG": "19041957712703",
+            "account_ID": 0,
+            "balance": 0,
+            "password": "712703"
+        },
+        {
+            "firstName": "Sage",
+            "lastName": "Turner",
+            "JMBG": "12111951144496",
+            "account_ID": 1,
+            "balance": 0,
+            "password": "144496"
+        },
+        {
+            "firstName": "Terrence",
+            "lastName": "Blackwell",
+            "JMBG": "06031988999874",
+            "account_ID": 2,
+            "balance": 0,
+            "password": "999874"
+        },
+        {
+            "firstName": "Gisselle",
+            "lastName": "Bauer",
+            "JMBG": "27041958905943",
+            "account_ID": 3,
+            "balance": 0,
+            "password": "905943"
+        },
+        {
+            "firstName": "Enzo",
+            "lastName": "Mcdaniel",
+            "JMBG": "08061948727009",
+            "account_ID": 4,
+            "balance": 0,
+            "password": "727009"
+        },
+        {
+            "firstName": "Gloria",
+            "lastName": "Jones",
+            "JMBG": "21081941466530",
+            "account_ID": 5,
+            "balance": 0,
+            "password": "466530"
+        },
+        {
+            "firstName": "Kennedy",
+            "lastName": "Shields",
+            "JMBG": "24011976304793",
+            "account_ID": 6,
+            "balance": 0,
+            "password": "304793"
+        },
+        {
+            "firstName": "Bradyn",
+            "lastName": "Larsen",
+            "JMBG": "19031958985688",
+            "account_ID": 7,
+            "balance": 0,
+            "password": "985688"
+        },
+        {
+            "firstName": "India",
+            "lastName": "Rush",
+            "JMBG": "13031992106115",
+            "account_ID": 8,
+            "balance": 0,
+            "password": "106115"
+        },
+        {
+            "firstName": "June",
+            "lastName": "Everett",
+            "JMBG": "25051944420650",
+            "account_ID": 9,
+            "balance": 0,
+            "password": "420650"
+        },
+        {
+            "firstName": "Jamison",
+            "lastName": "Haney",
+            "JMBG": "16041945736645",
+            "account_ID": 10,
+            "balance": 0,
+            "password": "736645"
+        },
+        {
+            "firstName": "Hugo",
+            "lastName": "Castro",
+            "JMBG": "02031960228262",
+            "account_ID": 11,
+            "balance": 0,
+            "password": "228262"
+        },
+        {
+            "firstName": "Rohan",
+            "lastName": "Cox",
+            "JMBG": "17011994816859",
+            "account_ID": 12,
+            "balance": 0,
+            "password": "816859"
+        },
+        {
+            "firstName": "Averie",
+            "lastName": "Hart",
+            "JMBG": "15041994325431",
+            "account_ID": 13,
+            "balance": 0,
+            "password": "325431"
+        },
+        {
+            "firstName": "Grayson",
+            "lastName": "Hammond",
+            "JMBG": "10091960238301",
+            "account_ID": 14,
+            "balance": 0,
+            "password": "238301"
+        },
+        {
+            "firstName": "Patricia",
+            "lastName": "Copeland",
+            "JMBG": "20091993967937",
+            "account_ID": 15,
+            "balance": 0,
+            "password": "967937"
+        },
+        {
+            "firstName": "Brian",
+            "lastName": "Dean",
+            "JMBG": "18041971959707",
+            "account_ID": 16,
+            "balance": 0,
+            "password": "959707"
+        },
+        {
+            "firstName": "Muhammad",
+            "lastName": "Horton",
+            "JMBG": "02071983496288",
+            "account_ID": 17,
+            "balance": 0,
+            "password": "496288"
+        },
+        {
+            "firstName": "Noelle",
+            "lastName": "Lucas",
+            "JMBG": "11061997969755",
+            "account_ID": 18,
+            "balance": 0,
+            "password": "969755"
+        },
+        {
+            "firstName": "Roger",
+            "lastName": "Coffey",
+            "JMBG": "05101985922306",
+            "account_ID": 19,
+            "balance": 0,
+            "password": "922306"
+        }
+    ],
+    "transactions": []
+}

@@ -252,3 +252,8 @@ console.log(trecaBanka.accounts)
 console.log(numberOfCustomores[99])
 // console.log(trecaBanka.accounts[1])
 // console.log(numberOfCustomores[1])
+
+const fs = require('fs');
+fs.writeFile("TrecaBanka.json", JSON.stringify(trecaBanka), function (err) {
+    if (err) throw err;
+});
