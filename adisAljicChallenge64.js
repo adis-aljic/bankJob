@@ -254,6 +254,14 @@ console.log(numberOfCustomores[99])
 // console.log(numberOfCustomores[1])
 
 const fs = require('fs');
-fs.writeFile("TrecaBanka.json", JSON.stringify(trecaBanka), function (err) {
+
+const data_Base = {
+    BANKS : [],
+    CUSTOMERS : []
+}
+data_Base.BANKS.push(prvaBanka, drugaBanka, trecaBanka)
+data_Base.CUSTOMERS.push(numberOfCustomores)
+
+fs.writeFile("data_Base.json", JSON.stringify(data_Base), function (err) {
     if (err) throw err;
 });
