@@ -17,7 +17,7 @@ const importNamesAndCreateListOfPeople = (txtFile) => {
     return temp;
 }
 let listOfPeople = importNamesAndCreateListOfPeople("employees.txt")
-const getTime = ()=> {
+const getTime = () => {
     const currentDate = new Date();
     return currentDate.toLocaleString();
 
@@ -27,15 +27,35 @@ const getTime = ()=> {
 // konstruktor za kreiranje objekta transakcije
 const createTransaction = (firstName, lastName, ID, type, account_ID, JMBG, amount) => {
     return {
-        time: getTime ().substring(11),
-        date: getTime ().substring(0,10),
+        time: getTime().substring(11),
+        date: getTime().substring(0, 10),
         firstName,
         lastName,
         ID, // id transakcije
         type,
         account_ID, // id akounta sa kojeg se vrsi transakcija
         JMBG, // id osobe koji je ujedno i maticni broj
-        amount 
+        amount
+
+    }
+}
+const createTransactionForTransferingMoney = (bank_IDSender, bank_IDReciever, firstNameSender, lastNameSender, firstNameReciever, lastNameReciever, ID, type, SenderAccount_ID, RecieverAccount_ID, JMBGSender, JMBGReciever, amount) => {
+    return {
+        time: getTime().substring(11),
+        date: getTime().substring(0, 10),
+        bank_IDSender,
+        bank_IDReciever,
+        firstNameSender,
+        lastNameSender,
+        firstNameReciever,
+        lastNameReciever,
+        ID, // id transakcije
+        type,
+        SenderAccount_ID, // id akounta sa kojeg se salju pare
+        RecieverAccount_ID, // id akounta na koji se salju pare
+        JMBGSender,
+        JMBGReciever, // id osobe koji je ujedno i maticni broj
+        amount
 
     }
 }
@@ -59,7 +79,7 @@ createBank = (bank_ID, name, location, accounts = [], transactions = []) => {
         // ali kako su uvijek generisani random prilikom svako pokretanja programa morao sam to izbaciti 
         closeAccount(person) {
             this.accounts.forEach(account => {
-                if (person.account_ID == account.account_ID) { 
+                if (person.account_ID == account.account_ID) {
                     accounts.splice(accounts.indexOf(account), 1)
                     person.hasAcc = false;
                     person.account_ID = undefined;
@@ -67,12 +87,27 @@ createBank = (bank_ID, name, location, accounts = [], transactions = []) => {
                 }
 
             });
+        },  // index 1 refers to bank and account from which we send money, index 2 refers to bank and acc which recive money
+        transferMoney(account_ID1, bank1, account_ID2, bank2, amount) {
+            bank1.accounts.forEach(account => {
+                bank2.accounts.forEach(account1 => {
+
+                    if (account.account_ID == account_ID1 && account1.account_ID == account_ID2) {
+
+                        bank1.accounts[account_ID1].balance -= amount;
+                        bank2.accounts[account_ID2].balance += amount;
+                        bank1.transactions.push(createTransactionForTransferingMoney(account.bank_ID, account1.bank_ID, account.firstName, account.lastName, account1.firstName, account1.lastName, transactions.length, "transfer money", account.account_ID, account1.account_ID, account.JMBG, account1.JMBG, amount)) 
+                        bank2.transactions.push(createTransactionForTransferingMoney(account.bank_ID, account1.bank_ID,account.firstName, account.lastName, account1.firstName, account1.lastName, transactions.length, "transfer money", account.account_ID, account1.account_ID, account.JMBG, account1.JMBG, amount)) 
+                }                
+                });
+
+            });
         },
         deposit(account_ID1, deposit) {
             this.accounts.forEach(account => {
                 if (account.account_ID == account_ID1) {
                     account.balance += deposit;
-                    this.transactions.push(createTransaction( account.firstName, account.lastName, transactions.length, "deposit", account.account_ID, account.JMBG, deposit));
+                    this.transactions.push(createTransaction(account.firstName, account.lastName, transactions.length, "deposit", account.account_ID, account.JMBG, deposit));
                 }
 
             });
@@ -82,9 +117,10 @@ createBank = (bank_ID, name, location, accounts = [], transactions = []) => {
         withdraw(account_ID1, withdraw) {
             this.accounts.forEach(account => {
                 if (account.account_ID == account_ID1) {
-                        if( account.balance >= withdraw){
-                    account.balance -= withdraw;
-                    this.transactions.push(createTransaction( account.firstName, account.lastName, transactions.length, "withdraw", account.account_ID, account.JMBG, withdraw));}
+                    if (account.balance >= withdraw) {
+                        account.balance -= withdraw;
+                        this.transactions.push(createTransaction(account.firstName, account.lastName, transactions.length, "withdraw", account.account_ID, account.JMBG, withdraw));
+                    }
                     else console.log("Na  akauntu broj " + account.account_ID + " nemate dovoljno sredstava na racunu");
                 }
 
@@ -96,7 +132,7 @@ createBank = (bank_ID, name, location, accounts = [], transactions = []) => {
             this.accounts.forEach(account => {
                 if (account.account_ID == account_ID1) {
                     console.log("Vas racun iznosi " + account.balance);
-                    this.transactions.push(createTransaction( account.firstName, account.lastName, transactions.length, "check Balance", account.account_ID, account.JMBG, account.balance));
+                    this.transactions.push(createTransaction(account.firstName, account.lastName, transactions.length, "check Balance", account.account_ID, account.JMBG, account.balance));
                 }
             });
         },
@@ -113,7 +149,7 @@ createPerson = (firstName, lastName, birthDate, JMBG, account) => {
         account_ID: undefined, // ako ima otvoren da se zna koji mu je id, u stvarnom zivotu to je kartica
         // orginalno sam htio staviti da akount id bude broj od 16 cifara koji je random generisan ali ne bi mogao praiti onda koji je
         // broj racuna koje oosbe pa sam presao na klasicno 1 2 3 itd
-        account : undefined
+        account: undefined
     }
 }
 
@@ -178,14 +214,14 @@ const trecaBanka = createBank(3, "Treca Banka", "Tuzla");
 
 function createAccount(person, account_ID) {
     return {
-        bank_ID : undefined,
+        bank_ID: undefined,
         firstName: person.firstName,
         lastName: person.lastName,
         JMBG: person.JMBG,
         account_ID,
         balance: 0,
         password: person.JMBG.slice(-6)
-     // pasword osobe je zamisljen kao zadnjih sest brojeva jmbg jer su oni unikatni za svaku osobu
+        // pasword osobe je zamisljen kao zadnjih sest brojeva jmbg jer su oni unikatni za svaku osobu
     }
 }
 
@@ -196,7 +232,7 @@ const gotCustomers = (bank, array, number) => {
         if (array[i].hasAcc == false && cnt < number) {
             const person = array[i]
             // console.log(person)
-           const account = bank.openAccount(createAccount(person, i))
+            const account = bank.openAccount(createAccount(person, i))
             person.account = account;
             person.hasAcc = true
             person.account_ID = bank.accounts[cnt].account_ID
@@ -239,18 +275,18 @@ for (let i = 0; i < 10; i++) {
     for (let i = 1; i < 100; i++) {
         trecaBanka.deposit(i, 100)
         prvaBanka.deposit(i, 100)
-        
+
     }
-for (let i = 1; i < 100; i++) {
-    
-    drugaBanka.checkBalance(i)
-    trecaBanka.checkBalance(i)
-}
-for (let i = 0; i < 100; i++) {
-    trecaBanka.withdraw(i,1)    
-    prvaBanka.withdraw(i,1, )    
-    drugaBanka.withdraw(i,1)    
-}
+    for (let i = 1; i < 100; i++) {
+
+        drugaBanka.checkBalance(i)
+        trecaBanka.checkBalance(i)
+    }
+    for (let i = 0; i < 100; i++) {
+        trecaBanka.withdraw(i, 1)
+        prvaBanka.withdraw(i, 1,)
+        drugaBanka.withdraw(i, 1)
+    }
 }
 
 // funkcija koja pronalazi odredjeni acc u odredjenoj banci i ispisuje sve njegove transakcije
@@ -265,7 +301,7 @@ const findAccount = (account_ID, bank) => {
 
 
 // findAccount(1, trecaBanka)
-console.log(trecaBanka.accounts)  
+console.log(trecaBanka.accounts)
 console.log(numberOfCustomores[99])
 // console.log(trecaBanka.accounts[1])
 // console.log(numberOfCustomores[1])
@@ -273,17 +309,20 @@ console.log(numberOfCustomores[99])
 const fs = require('fs');
 
 const data_Base = {
-    BANKS : [],
-    CUSTOMERS : []
+    BANKS: [],
+    CUSTOMERS: []
 }
 data_Base.BANKS.push(prvaBanka, drugaBanka, trecaBanka)
 data_Base.CUSTOMERS.push(numberOfCustomores)
 
-fs.writeFile("data_Base.json", JSON.stringify(data_Base), function (err) {
+fs.writeFile("prvaBanka.json", JSON.stringify(prvaBanka.transactions), function (err) {
     if (err) throw err;
 });
 
-console.log(prvaBanka.transactions[0])
-console.log(drugaBanka.transactions.length)
-console.log(trecaBanka.transactions.length)
-console.log(numberOfCustomores[1])
+// console.log(prvaBanka.transactions[0])
+// console.log(drugaBanka.transactions.length)
+// console.log(trecaBanka.transactions.length)
+// console.log(numberOfCustomores[1])
+const aaaa =prvaBanka.transferMoney(10,prvaBanka,16,prvaBanka,50)
+console.log( prvaBanka.transactions[prvaBanka.transactions.length-1])
+
