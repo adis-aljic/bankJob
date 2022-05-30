@@ -226,13 +226,18 @@ for (let i = 0; i < 10; i++) {
     // izvrseno po sto transakcija za svaku transakciju
     for (let i = 1; i < 100; i++) {
         trecaBanka.deposit(i, 100, "16.8.2022")
+        prvaBanka.deposit(i, 100, "16.8.2022")
+        
     }
 for (let i = 1; i < 100; i++) {
     
+    drugaBanka.checkBalance(i, "17.8.2021")
     trecaBanka.checkBalance(i, "17.8.2021")
 }
 for (let i = 0; i < 100; i++) {
     trecaBanka.withdraw(i,1, "15.8.2022")    
+    prvaBanka.withdraw(i,1, "15.8.2022")    
+    drugaBanka.withdraw(i,1, "15.8.2022")    
 }
 }
 
@@ -265,3 +270,7 @@ data_Base.CUSTOMERS.push(numberOfCustomores)
 fs.writeFile("data_Base.json", JSON.stringify(data_Base), function (err) {
     if (err) throw err;
 });
+
+console.log(prvaBanka.transactions.length)
+console.log(drugaBanka.transactions.length)
+console.log(trecaBanka.transactions.length)
