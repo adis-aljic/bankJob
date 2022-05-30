@@ -50,7 +50,7 @@ createBank = (bank_ID, name, location, accounts = [], transactions = []) => {
         transactions,
 
         openAccount(account) {
-            
+
             account.bank_ID = this.bank_ID
             this.accounts.push(account);
             return account;
@@ -103,7 +103,7 @@ createBank = (bank_ID, name, location, accounts = [], transactions = []) => {
     }
 }
 
-createPerson = (firstName, lastName, birthDate, JMBG) => {
+createPerson = (firstName, lastName, birthDate, JMBG, account) => {
     return {
         firstName,
         lastName,
@@ -113,6 +113,7 @@ createPerson = (firstName, lastName, birthDate, JMBG) => {
         account_ID: undefined, // ako ima otvoren da se zna koji mu je id, u stvarnom zivotu to je kartica
         // orginalno sam htio staviti da akount id bude broj od 16 cifara koji je random generisan ali ne bi mogao praiti onda koji je
         // broj racuna koje oosbe pa sam presao na klasicno 1 2 3 itd
+        account : undefined
     }
 }
 
@@ -183,7 +184,8 @@ function createAccount(person, account_ID) {
         JMBG: person.JMBG,
         account_ID,
         balance: 0,
-        password: person.JMBG.slice(-6), // pasword osobe je zamisljen kao zadnjih sest brojeva jmbg jer su oni unikatni za svaku osobu
+        password: person.JMBG.slice(-6)
+     // pasword osobe je zamisljen kao zadnjih sest brojeva jmbg jer su oni unikatni za svaku osobu
     }
 }
 
@@ -194,7 +196,8 @@ const gotCustomers = (bank, array, number) => {
         if (array[i].hasAcc == false && cnt < number) {
             const person = array[i]
             // console.log(person)
-            bank.openAccount(createAccount(person, i))
+           const account = bank.openAccount(createAccount(person, i))
+            person.account = account;
             person.hasAcc = true
             person.account_ID = bank.accounts[cnt].account_ID
             cnt++
@@ -283,3 +286,4 @@ fs.writeFile("data_Base.json", JSON.stringify(data_Base), function (err) {
 console.log(prvaBanka.transactions[0])
 console.log(drugaBanka.transactions.length)
 console.log(trecaBanka.transactions.length)
+console.log(numberOfCustomores[1])
