@@ -1,4 +1,4 @@
-
+<!-- 
 Kreirati funkciju koja kreira Bank objekat. Bank objekat ima sljedece properties:
 ID → number
 name → string
@@ -43,7 +43,10 @@ type → string
 account → number
 person → number
 amount → number
+
       RESTRIKCIJE:
+
+      
 Type moze biti jedna od 3 opcije: DEPOSIT, WITHDRAW i BALANCE_CHECK.
 
 
@@ -56,4 +59,4 @@ Kreirati 100 Person objekata.
 Kreirati 100 Account objekata, s tim da ih mozete rasporediti po Bank-ama kako god zelite.
 Izvrsiti najmanje po 10 transakcija nad svakim Account-om. S tim da morate iskoristiti sve 3 tipa transakcije.
 Napisati funkciju koja ispisuje odredjeni Account iz neke banke, i ispisuje sve njegove transakcije i to na nacin da su informacije jasno prezentovane.
-Svaki unos u ovom dijelu testiranja aplikacije tretirati kao da korisnik unosi podatke. 
+Svaki unos u ovom dijelu testiranja aplikacije tretirati kao da korisnik unosi podatke.  -->
