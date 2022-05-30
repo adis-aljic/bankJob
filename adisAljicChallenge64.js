@@ -17,12 +17,18 @@ const importNamesAndCreateListOfPeople = (txtFile) => {
     return temp;
 }
 let listOfPeople = importNamesAndCreateListOfPeople("employees.txt")
+const getTime = ()=> {
+    const currentDate = new Date();
+    return currentDate.toLocaleString();
+
+}
 
 
 // konstruktor za kreiranje objekta transakcije
-const createTransaction = (date, firstName, lastName, ID, type, account_ID, JMBG, amount) => {
+const createTransaction = (firstName, lastName, ID, type, account_ID, JMBG, amount) => {
     return {
-        date, // datum transakcije, unosi se kao string
+        time: getTime ().substring(11),
+        date: getTime ().substring(0,10),
         firstName,
         lastName,
         ID, // id transakcije
@@ -60,23 +66,23 @@ createBank = (bank_ID, name, location, accounts = [], transactions = []) => {
 
             });
         },
-        deposit(account_ID1, deposit, date) {
+        deposit(account_ID1, deposit) {
             this.accounts.forEach(account => {
                 if (account.account_ID == account_ID1) {
                     account.balance += deposit;
-                    this.transactions.push(createTransaction(date, account.firstName, account.lastName, transactions.length, "deposit", account.account_ID, account.JMBG, deposit));
+                    this.transactions.push(createTransaction( account.firstName, account.lastName, transactions.length, "deposit", account.account_ID, account.JMBG, deposit));
                 }
 
             });
 
 
         },
-        withdraw(account_ID1, withdraw, date) {
+        withdraw(account_ID1, withdraw) {
             this.accounts.forEach(account => {
                 if (account.account_ID == account_ID1) {
                         if( account.balance >= withdraw){
                     account.balance -= withdraw;
-                    this.transactions.push(createTransaction(date, account.firstName, account.lastName, transactions.length, "withdraw", account.account_ID, account.JMBG, withdraw));}
+                    this.transactions.push(createTransaction( account.firstName, account.lastName, transactions.length, "withdraw", account.account_ID, account.JMBG, withdraw));}
                     else console.log("Na  akauntu broj " + account.account_ID + " nemate dovoljno sredstava na racunu");
                 }
 
@@ -84,11 +90,11 @@ createBank = (bank_ID, name, location, accounts = [], transactions = []) => {
 
 
         },
-        checkBalance(account_ID1, date) {
+        checkBalance(account_ID1) {
             this.accounts.forEach(account => {
                 if (account.account_ID == account_ID1) {
                     console.log("Vas racun iznosi " + account.balance);
-                    this.transactions.push(createTransaction(date, account.firstName, account.lastName, transactions.length, "check Balance", account.account_ID, account.JMBG, account.balance));
+                    this.transactions.push(createTransaction( account.firstName, account.lastName, transactions.length, "check Balance", account.account_ID, account.JMBG, account.balance));
                 }
             });
         },
@@ -225,19 +231,19 @@ for (let i = 0; i < 10; i++) {
     // izvrseno po deset transakcija po akountu
     // izvrseno po sto transakcija za svaku transakciju
     for (let i = 1; i < 100; i++) {
-        trecaBanka.deposit(i, 100, "16.8.2022")
-        prvaBanka.deposit(i, 100, "16.8.2022")
+        trecaBanka.deposit(i, 100)
+        prvaBanka.deposit(i, 100)
         
     }
 for (let i = 1; i < 100; i++) {
     
-    drugaBanka.checkBalance(i, "17.8.2021")
-    trecaBanka.checkBalance(i, "17.8.2021")
+    drugaBanka.checkBalance(i)
+    trecaBanka.checkBalance(i)
 }
 for (let i = 0; i < 100; i++) {
-    trecaBanka.withdraw(i,1, "15.8.2022")    
-    prvaBanka.withdraw(i,1, "15.8.2022")    
-    drugaBanka.withdraw(i,1, "15.8.2022")    
+    trecaBanka.withdraw(i,1)    
+    prvaBanka.withdraw(i,1, )    
+    drugaBanka.withdraw(i,1)    
 }
 }
 
@@ -271,6 +277,6 @@ fs.writeFile("data_Base.json", JSON.stringify(data_Base), function (err) {
     if (err) throw err;
 });
 
-console.log(prvaBanka.transactions.length)
+console.log(prvaBanka.transactions[0])
 console.log(drugaBanka.transactions.length)
 console.log(trecaBanka.transactions.length)
