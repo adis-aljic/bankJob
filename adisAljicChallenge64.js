@@ -88,7 +88,7 @@ createBank = (bank_ID, name, location, accounts = [], transactions = []) => {
                     accounts.splice(accounts.indexOf(account), 1)
                     person.hasAcc = false;
                     person.account_ID = undefined;
-                    account.balance = 0;
+                    
                 }
 
             });
